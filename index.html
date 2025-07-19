@@ -118,6 +118,7 @@
             background: #000000;
             border-radius: 50%;
             animation: float 20s infinite linear;
+            will-change: transform;
         }
 
         @keyframes float {
@@ -837,6 +838,12 @@
             }
         }
 
+        // Initialize immediately when DOM content is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createGrid();
+            createGenerativeBg();
+        });
+
         // Scroll animations
         const observerOptions = {
             threshold: 0.1,
@@ -851,20 +858,20 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-up').forEach(el => {
-            observer.observe(el);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.fade-up').forEach(el => {
+                observer.observe(el);
+            });
         });
 
         // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Message sent successfully!');
-            e.target.reset();
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Message sent successfully!');
+                e.target.reset();
+            });
         });
-
-        // Initialize
-        createGrid();
-        createGenerativeBg();
 
         // Regenerate grid on resize
         window.addEventListener('resize', () => {
