@@ -830,8 +830,8 @@
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
                 dot.style.left = Math.random() * 100 + '%';
-                // Reduce delay so particles start flowing immediately
-                dot.style.animationDelay = Math.random() * 5 + 's';
+                // Start at random points in animation cycle for immediate effect
+                dot.style.animationDelay = '-' + (Math.random() * 20) + 's';
                 dot.style.animationDuration = (15 + Math.random() * 10) + 's';
                 container.appendChild(dot);
             }
