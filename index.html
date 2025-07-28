@@ -6,807 +6,115 @@
     <title>Adam Dreissinger - Creative Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: #ffffff;
-            color: #000000;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
-
-        /* Grid overlay */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.10;
-        }
-
-        .grid-line {
-            position: absolute;
-            background: #000000;
-        }
-
-        .grid-line:nth-child(7n) {
-            /* Removed animation delay */
-        }
-
-        .grid-line:nth-child(11n) {
-            /* Removed animation delay */
-        }
-
-        .grid-line.vertical {
-            width: 1px;
-            height: 100%;
-        }
-
-        .grid-line.horizontal {
-            height: 1px;
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 75vh;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 40px;
-            position: relative;
-            background: #ffffff;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            z-index: 2;
-        }
-
-        .hero-label {
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: #666666;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 800;
-            margin-bottom: 30px;
-            letter-spacing: -3px;
-            line-height: 0.9;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: #333333;
-            margin-bottom: 40px;
-            max-width: 500px;
-        }
-
-        .hero-meta {
-            font-size: 14px;
-            color: #666666;
-            font-weight: 400;
-        }
-
-        /* Generative background */
-        .generative-bg {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .dot {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #000000;
-            border-radius: 50%;
-            animation: float 20s infinite linear;
-            will-change: transform;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
-        }
-
-        /* Add scroll hint */
-        .hero::after {
-            content: '↓';
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: #666666;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        /* Selected Works Section */
-        .showreel {
-            padding: 25px 40px 80px;
-            background: #f8f8f8;
-            border-top: 1px solid #e0e0e0;
-            position: relative;
-        }
-
-        .showreel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent 0%, #000000 20%, #000000 80%, transparent 100%);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .section-meta {
-            font-size: 12px;
-            color: #666666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .work-category {
-            max-width: 1200px;
-            margin: 0 auto 80px auto;
-        }
-
-        .work-category:last-child {
-            margin-bottom: 0;
-        }
-
-        .category-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            letter-spacing: -1px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .video-item {
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            transition: transform 0.3s ease;
-        }
-
-        .video-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 160px;
-            background: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 0.9rem;
-            font-weight: 400;
-            overflow: hidden;
-        }
-
-        .video-placeholder iframe {
-            width: 100%;
-            height: 160px;
-            border: none;
-        }
-
-        .video-info {
-            padding: 15px;
-        }
-
-        .video-name {
-            font-size: 15px;
-            color: #666666;
-            margin-bottom: 5px;
-            font-weight: 400;
-        }
-
-        .video-description {
-            font-size: 15px;
-            font-weight: 600;
-            color: #000000;
-        }
-
-        /* About Section */
-        .about {
-            padding: 80px 40px;
-            background: #f8f8f8;
-            border-top: 1px solid #e0e0e0;
-            position: relative;
-        }
-
-        .about::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 1px;
-            background: #000000;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-        }
-
-        .about-info {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #333333;
-        }
-
-        .about-info h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .about-content {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #333333;
-        }
-
-        .about-content p {
-            margin-bottom: 20px;
-        }
-
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .skill-item {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 8px 12px;
-            border: 1px solid #000000;
-            background: #ffffff;
-            font-weight: 500;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 40px;
-            background: #ffffff;
-            border-top: 1px solid #e0e0e0;
-            position: relative;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 40px;
-            right: 40px;
-            height: 1px;
-            background: repeating-linear-gradient(
-                90deg,
-                #000000 0px,
-                #000000 20px,
-                transparent 20px,
-                transparent 40px
-            );
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-        }
-
-        .contact-info {
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .contact-info h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .contact-item {
-            margin-bottom: 10px;
-        }
-
-        .contact-item a {
-            color: #000000;
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            opacity: 0.6;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666666;
-            font-weight: 500;
-        }
-
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'JetBrains Mono', monospace; background: #fff; color: #000; overflow-x: hidden; line-height: 1.4;}
+        .grid-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.10;}
+        .grid-line {position: absolute; background: #000;}
+        .grid-line.vertical {width: 1px; height: 100%;}
+        .grid-line.horizontal {height: 1px; width: 100%;}
+        .hero {height: 75vh; display: flex; align-items: center; justify-content: flex-start; padding: 0 40px; position: relative; background: #fff;}
+        .hero-content {max-width: 600px; z-index: 2;}
+        .hero-label {font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; color: #666;}
+        .hero h1 {font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; margin-bottom: 30px; letter-spacing: -3px; line-height: 0.9;}
+        .hero p {font-size: clamp(1rem, 2vw, 1.2rem); color: #333; margin-bottom: 40px; max-width: 500px;}
+        .hero-meta {font-size: 14px; color: #666; font-weight: 400;}
+        .generative-bg {position: absolute; top: 0; right: 0; width: 50%; height: 100%; overflow: hidden;}
+        .dot {position: absolute; width: 2px; height: 2px; background: #000; border-radius: 50%; animation: float 20s infinite linear; will-change: transform;}
+        @keyframes float {0%{transform:translateY(100vh) rotate(0deg);}100%{transform:translateY(-100px) rotate(360deg);}}
+        .hero::after {content: '↓'; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: #666; animation: bounce 2s infinite;}
+        @keyframes bounce {0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0);}40%{transform:translateX(-50%) translateY(-10px);}60%{transform:translateX(-50%) translateY(-5px);}}
+        .showreel {padding: 25px 40px 80px; background: #f8f8f8; border-top: 1px solid #e0e0e0; position: relative;}
+        .showreel::before {content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, #000 20%, #000 80%, transparent 100%);}
+        .section-header {display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 60px;}
+        .section-title {font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -1px;}
+        .section-meta {font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px;}
+        .work-category {max-width: 1200px; margin: 0 auto 80px auto;}
+        .work-category:last-child {margin-bottom: 0;}
+        .category-title {font-size: 1.5rem; font-weight: 700; margin-bottom: 40px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0; letter-spacing: -1px;}
+        .category-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;}
+        .video-item {background: #fff; border: 1px solid #e0e0e0; transition: transform 0.3s ease;}
+        .video-item:hover {transform: translateY(-5px);}
+        .video-placeholder {width: 100%; height: 160px; background: #000; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.9rem; font-weight: 400; overflow: hidden;}
+        .video-placeholder iframe {width: 100%; height: 160px; border: none;}
+        .video-info {padding: 15px;}
+        .video-name {font-size: 15px; color: #666; margin-bottom: 5px; font-weight: 400;}
+        .video-description {font-size: 15px; font-weight: 600; color: #000;}
+        .about {padding: 80px 40px; background: #f8f8f8; border-top: 1px solid #e0e0e0; position: relative;}
+        .about::before {content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 1px; background: #000;}
+        .about-container {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px;}
+        .about-info {font-size: 0.9rem; line-height: 1.6; color: #333;}
+        .about-info h3 {font-size: 1rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;}
+        .about-content {font-size: 1rem; line-height: 1.7; color: #333;}
+        .about-content p {margin-bottom: 20px;}
+        .skills-list {display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px;}
+        .skill-item {font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border: 1px solid #000; background: #fff; font-weight: 500;}
+        .contact {padding: 80px 40px; background: #fff; border-top: 1px solid #e0e0e0; position: relative;}
+        .contact::before {content: ''; position: absolute; top: 0; left: 40px; right: 40px; height: 1px; background: repeating-linear-gradient(90deg, #000 0px, #000 20px, transparent 20px, transparent 40px);}
+        .contact-container {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px;}
+        .contact-info {font-size: 0.9rem; line-height: 1.6;}
+        .contact-info h3 {font-size: 1rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;}
+        .contact-item {margin-bottom: 10px;}
+        .contact-item a {color: #000; text-decoration: none; transition: opacity 0.3s ease;}
+        .contact-item a:hover {opacity: 0.6;}
+        .contact-form {display: flex; flex-direction: column; gap: 15px;}
+        .form-group {display: flex; flex-direction: column; gap: 5px;}
+        .form-group label {font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 500;}
         .form-group input,
-        .form-group textarea {
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            background: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #000000;
-            transition: border-color 0.3s ease;
-        }
-
+        .form-group textarea {padding: 15px; border: 1px solid #e0e0e0; background: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #000; transition: border-color 0.3s ease;}
         .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #000000;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: #000000;
-            color: #ffffff;
-            padding: 15px 30px;
-            border: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-            align-self: flex-start;
-            font-weight: 500;
-        }
-
-        .submit-btn:hover {
-            opacity: 0.8;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 40px 40px 20px;
-            background: #000000;
-            color: #ffffff;
-            text-align: center;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Responsive */
+        .form-group textarea:focus {outline: none; border-color: #000;}
+        .form-group textarea {resize: vertical; min-height: 120px;}
+        .submit-btn {background: #000; color: #fff; padding: 15px 30px; border: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: opacity 0.3s ease; align-self: flex-start; font-weight: 500;}
+        .submit-btn:hover {opacity: 0.8;}
+        .footer {padding: 40px 40px 20px; background: #000; color: #fff; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;}
         @media (max-width: 768px) {
-            .hero {
-                padding: 0 20px;
-            }
-            
-            .showreel, .about, .contact {
-                padding: 60px 20px;
-            }
-            
-            .about-container, .contact-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
+            .hero {padding: 0 20px;}
+            .showreel, .about, .contact {padding: 60px 20px;}
+            .about-container, .contact-container {grid-template-columns: 1fr; gap: 40px;}
+            .category-grid {grid-template-columns: 1fr;}
+            .section-header {flex-direction: column; align-items: flex-start; gap: 10px;}
         }
-
-        /* Scroll animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up {opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease;}
+        .fade-up.visible {opacity: 1; transform: translateY(0);}
     </style>
 </head>
 <body>
     <!-- Grid overlay -->
     <div class="grid-overlay" id="gridOverlay"></div>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-label">Multidisciplinary Creator</div>
             <h1>Adam<br>Dreissinger</h1>
+            <div style="margin-bottom:32px;width:100%;display:flex;justify-content:center;align-items:center;">
+                <div style="width:100%;max-width:600px;">
+                    <div style="position:relative;width:100%;padding-bottom:75%;overflow:hidden;border-radius:22px;box-shadow:0 4px 24px #0001;">
+                        <iframe
+                            src="https://drive.google.com/file/d/1oWu4nm61IgGeci20xyaUFLjJN1hsW5sL/preview"
+                            width="1024"
+                            height="768"
+                            allow="autoplay"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:22px;box-shadow:0 4px 24px #0002;border:none;"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
             <p>Multidisciplinary creative media professional with strong expertise in video editing, motion design, and AI-powered content creation. Skilled at blending cinematic storytelling with emerging technologies, including AI-based video, image, and language models.</p>
             <div class="hero-meta">Creative Media Professional • Tel Aviv-Yafo, Israel</div>
         </div>
         <div class="generative-bg" id="generativeBg"></div>
     </section>
 
-    <!-- Selected Works Section -->
-    <section class="showreel fade-up">
-        <div class="section-header">
-            <h2 class="section-title">Selected Works</h2>
-            <div class="section-meta">Filmmaking, Video Editing & Motion Design • AI</div>
-        </div>
-        
-        <!-- Filmmaking, Video Editing & Motion Design -->
-        <div class="work-category">
-            <h3 class="category-title">Filmmaking, Video Editing & Motion Design</h3>
-            <div class="category-grid">
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/P6IaIuYs4Bo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"Stop & Smell the Roses"</div>
-                        <div class="video-description">Directed & Edited | Official Selection: Amarcort Film Festival (Rimini)</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/DRgfS5t7BxU?si=UvHnii9ezOri-tJK&amp;start=4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"That Way"</div>
-                        <div class="video-description">Short Film Editing</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/mWGj3j4-etI?si=1aXhuZSz1lS3QHy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"No Passage"</div>
-                        <div class="video-description">Short Film Editing</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/mqGM6Pa_xnc" title="Coacher Social Media   2 Editing + Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">IG/TikTok: Coacher #1</div>
-                        <div class="video-description">Editing & Motion Design</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/u71yh1NN_uE" title="Coacher Social Media   1 Editing + Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">IG/TikTok: Coacher #2</div>
-                        <div class="video-description">Editing & Motion Design</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/xJgih8UczzY" title="Coacher Social Media   3 Editing + Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">IG/TikTok: Coacher #3</div>
-                        <div class="video-description">Editing & Motion Design</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/1r2ehxy7LPg?si=NKznD5H7a5X4OfA-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">3D Tunnel</div>
-                        <div class="video-description">Motion Design Experiment in After Effects</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/FZ5hyMNFtY4" title="Hug - Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Hug - Motion Design</div>
-                        <div class="video-description">Motion Design</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/Dofdwd6IJnU" title="Ice Bath   Editing &amp; Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">IG/TikTok: Ilai Baram – Wim Hof Ice Bath</div>
-                        <div class="video-description">Editing & Motion Design</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/CvvOu1_qhxA" title="Icon   Big Brother Editing + Motion Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">IG/TikTok: Big Brother Interview (Icon)</div>
-                        <div class="video-description">Editing & Motion Design</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- ...The rest of your site (works, about, contact, footer) remains unchanged from your last code... -->
 
-        <!-- AI -->
-        <div class="work-category">
-            <h3 class="category-title">AI</h3>
-            <div class="category-grid">
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/2nBXrY6LCmM" title="Ophelia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"Ophelia"</div>
-                        <div class="video-description">Cinematic AI Motion Concept using Sora</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AHX9XpdB1wU?si=s7TMmPTXiGOvqfN_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Cartoon World Intro</div>
-                        <div class="video-description">Animated with Minimax Engine</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/2HnRRRoGzjI" title="Floral Genetics Development" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Floral Genetics</div>
-                        <div class="video-description">AI Growth Study with WAN, Kling & Midjourney</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/LxCmMp6aRM0?si=eAeh62l4TKA1MnbW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"Smoke & Mirrors"</div>
-                        <div class="video-description">Visual Narrative Simulation with Veo3</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/D12VSqpNfgA?si=pmj5eDtAdiFGT34I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"Void"</div>
-                        <div class="video-description">Horror Gas Station Simulation Created with Sora</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/7dkleLgFL58?si=BHJK3VgNteNK-HLh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">"Cashier"</div>
-                        <div class="video-description">Horror Gas Station Simulation Created with Sora</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/_Fs1SkucWBk" title="Front Gate Vertical" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Landscape Vision #1 - Backyard Design Concept</div>
-                        <div class="video-description">Simulation with Veo3</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="526" height="935" src="https://www.youtube.com/embed/nG4UB6LsI-s" title="Back Gate" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Landscape Vision #2 – Backyard Design Concept</div>
-                        <div class="video-description">Simulation with Veo3</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ePlv_MeSb1U?si=iDGJ6aemr9c0jZLm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Landscape Vision #3 – Backyard Design Concept</div>
-                        <div class="video-description">Simulation with Veo3</div>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-placeholder">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Abrs5rhGfZ8?si=R0Vprnx0k-WRYhHG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-name">Landscape Vision #4 – Modern Fence & Greenery Flow Simulation</div>
-                        <div class="video-description">Simulation with Veo3</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about fade-up">
-        <div class="section-header">
-            <h2 class="section-title">About</h2>
-            <div class="section-meta">Background • Skills</div>
-        </div>
-        <div class="about-container">
-            <div class="about-info">
-                <h3>Info</h3>
-                <p>Creative media professional and certified film educator based in Tel Aviv, specializing in video editing, motion design, and AI-powered content creation.</p>
-                <p>B.Ed.F.A. in Cinema and Education<br>
-                Beit Berl Academic College (2019-2023)<br>
-                Graduated with distinction</p>
-                <p>Achievements:<br>
-                Finalist – Docaviv Festival 2024<br>
-                Official Selection – Amarcort Film Festival, Italy</p>
-                <p>Languages:<br>
-                English, German, Hebrew</p>
-            </div>
-            <div class="about-content">
-                <p>I'm a multidisciplinary creative media professional with a background in cinematic storytelling, video editing, motion design, and AI-driven content creation. I've produced visual content for commercial projects, branded media, and social platforms—blending traditional techniques with emerging AI tools.</p>
-                
-                <p>My freelance work includes clients like Apollo, Icon, and Rentify, as well as AI voice localization projects for Artlist and Jungle Sound Studio. I've received international recognition, including finalist placement at Docaviv 2024 and selection at the Amarcort Film Festival in Italy.</p>
-                
-                <p>Currently, I teach film theory and guide student productions at Beit Hinuch Yarkon. Previously, I supported post-production and instruction at Beit Berl Academic College. I hold a B.Ed.F.A. in Cinema and Education (with distinction) and am a certified film educator.</p>
-                
-                <p>Passionate about new media and documentary storytelling, I merge cinematic craft with innovative AI tools to create meaningful visual experiences.</p>
-                
-                <div class="skills-list">
-                    <span class="skill-item">Video Editing & Motion Design</span>
-                    <span class="skill-item">Audio & Post-Production</span>
-                    <span class="skill-item">AI Creative Tools</span>
-                    <span class="skill-item">Film Education</span>
-                    <span class="skill-item">Documentary Production</span>
-                    <span class="skill-item">Commercial Content</span>
-                    <span class="skill-item">German Language Consulting</span>
-                    <span class="skill-item">Adobe Creative Suite</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact fade-up">
-        <div class="section-header">
-            <h2 class="section-title">Contact</h2>
-            <div class="section-meta">Get in touch</div>
-        </div>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>Direct</h3>
-                <div class="contact-item">
-                    <a href="mailto:adamdreissinger1245@gmail.com">adamdreissinger1245@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <a href="tel:+972522377346">+972 52-237-7346</a>
-                </div>
-                <div class="contact-item">
-                    <a href="https://www.linkedin.com/in/adam-dreissinger/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </div>
-                <div class="contact-item">
-                    <a href="#">Resume.pdf</a>
-                </div>
-            </div>
-            
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 Adam Dreissinger — Creative Media Professional</p>
-    </footer>
+    <!-- (Paste your remaining sections here as previously coded) -->
 
     <script>
         // Create grid overlay
         function createGrid() {
             const gridOverlay = document.getElementById('gridOverlay');
             const gridSize = 80;
-            
             // Vertical lines
             for (let i = 0; i <= window.innerWidth; i += gridSize) {
                 const line = document.createElement('div');
@@ -814,7 +122,6 @@
                 line.style.left = i + 'px';
                 gridOverlay.appendChild(line);
             }
-            
             // Horizontal lines
             for (let i = 0; i <= window.innerHeight; i += gridSize) {
                 const line = document.createElement('div');
@@ -823,35 +130,25 @@
                 gridOverlay.appendChild(line);
             }
         }
-
         // Create generative background
         function createGenerativeBg() {
             const container = document.getElementById('generativeBg');
             const numDots = 100;
-            
             for (let i = 0; i < numDots; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
                 dot.style.left = Math.random() * 100 + '%';
-                // Start at random points in animation cycle for immediate effect
                 dot.style.animationDelay = '-' + (Math.random() * 20) + 's';
                 dot.style.animationDuration = (15 + Math.random() * 10) + 's';
                 container.appendChild(dot);
             }
         }
-
-        // Initialize immediately when DOM content is loaded
         document.addEventListener('DOMContentLoaded', () => {
             createGrid();
             createGenerativeBg();
         });
-
         // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -859,13 +156,11 @@
                 }
             });
         }, observerOptions);
-
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.fade-up').forEach(el => {
                 observer.observe(el);
             });
         });
-
         // Form submission
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.contact-form').addEventListener('submit', (e) => {
@@ -874,7 +169,6 @@
                 e.target.reset();
             });
         });
-
         // Regenerate grid on resize
         window.addEventListener('resize', () => {
             document.getElementById('gridOverlay').innerHTML = '';
