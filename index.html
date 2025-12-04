@@ -1,3 +1,136 @@
+Open Editor
+Agent Manager
+Preview
+1
+Workspaces
+ARYA
+
+
+Playground
+
+Playground
+/
+Fixing Video Playback and Z-Index
+Review Changes
+
+Thought for 4s
+
+
+I'll optimize the page for mobile devices by enabling touch interactions, adjusting typography, and improving the layout for smaller screens:
+
+Edited
+
+index.html
++513
+-500
+Done! The page is now fully optimized for mobile. Here's what changed:
+
+Touch/Mobile Interactions:
+
+✅ Tap explosions: Touch events trigger particle explosions on mobile
+✅ Active states: Buttons and cards show feedback on tap (active:scale-[0.98], active:opacity-60)
+✅ Performance optimized: Fewer explosion particles (20 vs 40) and smaller spread on mobile
+✅ Line rendering skipped when too many particles to prevent lag
+Responsive Typography:
+
+✅ Smaller base font size on mobile (14px)
+✅ Adjusted heading sizes: text-4xl → text-5xl → text-7xl → text-8xl
+✅ Smaller video card text: text-[13px] on mobile
+Layout Adjustments:
+
+✅ Reduced padding: px-4 on mobile, px-10 on desktop
+✅ Smaller section spacing: py-12 on mobile, py-20 on desktop
+✅ 2-column video grid on tablet (sm:grid-cols-2)
+✅ Smaller grid overlay (40px on mobile, 80px on desktop)
+✅ Hero section: min-h-[60vh] on mobile vs min-h-[75vh] on desktop
+✅ Email address uses break-all to prevent overflow
+Refresh and test on your phone or resize your browser to see the mobile experience!
+
+change places between th arya ugc hook 1 andd hook 5
+adapt the text based on their positions (how they switched - for example hook 1 becomes 5 and hook 5 becomes 1)
+
+Thought for 2s
+
+
+I'll swap Arya Hook 1 and Hook 5, updating their titles to match their new positions:
+
+Edited
+
+index.html
++255
+-271
+The file got corrupted again. Let me write a complete fresh version with the swapped hooks:
+
+Edited
+
+index.html
++454
+-511
+and also bring back the option to click on a video so it works !! it doesnt play. or any possible option to go to the videos on youtube. fix that. also - the grid in the background cannot be above the videos. 
+
+Thought for 4s
+
+
+
+
+Good points! I need to fix:
+
+Video playback blocked - The invisible overlay is blocking iframe clicks
+Grid above videos - Need proper z-index on video cards
+Let me fix these by removing the overlay blocking the iframe, adding a YouTube link instead, and fixing z-index:
+
+Edited
+
+index.html
++275
+-302
+The replace corrupted the file again. Let me rewrite it completely with all the fixes:
+
+Edited
+
+index.html
++454
+-444
+Done! I've fixed all the issues. Refresh your page to see:
+
+Changes made:
+
+✅ Videos now play - Removed the invisible overlay that was blocking iframe clicks
+✅ "Watch on YouTube ↗" link - Added below each video description so users can open in YouTube
+✅ Grid is behind videos - Video cards now have z-[10] so they appear above the grid (z-[1])
+✅ Hook 1 ↔ Hook 5 swapped - Position 3 now shows Hook 5, position 7 shows Hook 1
+The videos should now be fully interactive - you can click to play them directly, and there's also a "Watch on YouTube" link if users prefer to watch on YouTube directly!
+
+Good
+Bad
+
+
+
+Add context
+Images
+Mentions
+
+Conversation mode
+Planning
+Agent can plan before executing tasks. Use for deep research, complex tasks, or collaborative work
+Fast
+Agent will execute tasks directly. Use for simple tasks that can be completed faster
+Model
+Gemini 3 Pro (High)
+Gemini 3 Pro (Low)
+Claude Sonnet 4.5
+Claude Sonnet 4.5 (Thinking)
+Claude Opus 4.5 (Thinking)
+GPT-OSS 120B (Medium)
+
+
+
+Review
+
+
+
+Expand All
+Collapse All
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +163,7 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #888; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
-        
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            html { font-size: 14px; }
-        }
+        @media (max-width: 768px) { html { font-size: 14px; } }
     </style>
 </head>
 <body class="text-black" style="background: transparent;">
@@ -46,11 +175,11 @@
             items: [
                 { id: "particle", title: "Particle – UGC + AI video ad for Meta & TikTok", description: "60-second UGC + AI performance ad for Particle's Face Cream, mixing real creator clips with AI-generated product shots and an AI-generated hook.", embedUrl: "https://www.youtube.com/embed/AVl3LHgUF-U" },
                 { id: "squeegee", title: "E-Commerce · ASMR · All in One Device Visualization", description: "\"Squeegee\" is a fictional Amazon inspired multi head cleaning gadget.", embedUrl: "https://www.youtube.com/embed/dDROTutSa6s" },
-                { id: "arya-1", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 1", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/TL8cPdKGneQ" },
+                { id: "arya-5", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 5", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/nYI5tv7-9X4" },
                 { id: "arya-2", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 2", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/d_6rUaPaAIo" },
                 { id: "arya-3", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 3", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/QfzHF6p2488" },
                 { id: "arya-4", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 4", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/FdFZJnffbJI" },
-                { id: "arya-5", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 5", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/nYI5tv7-9X4" },
+                { id: "arya-1", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 1", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/TL8cPdKGneQ" },
                 { id: "arya-project-2-hook-6", title: "Arya Project #2 – Hook 6", description: "Arya Project #2 – UGC + AI video ad", embedUrl: "https://www.youtube.com/embed/8kdog2CwyWg" },
                 { id: "arya-project-2-hook-7", title: "Arya Project #2 – Hook 7", description: "Arya Project #2 – UGC + AI video ad", embedUrl: "https://www.youtube.com/embed/ffrWJlcepac" },
                 { id: "arya-project-2-hook-8", title: "Arya Project #2 – Hook 8", description: "Arya Project #2 – UGC + AI video ad", embedUrl: "https://www.youtube.com/embed/VxSWBsK7erQ" },
@@ -92,7 +221,6 @@
                 { id: "webinar", title: "Guesty – Webinar", description: "Vertical LinkedIn/Instagram ad.", embedUrl: "https://www.youtube.com/embed/pmWIPn5RZf0" }
             ]
         };
-        // --- MOUSE TRAIL + CLICK/TAP EXPLOSION (works on mobile too) ---
         const MouseTrailCanvas = () => {
             const canvasRef = useRef(null);
             const particlesRef = useRef([]);
@@ -106,7 +234,6 @@
                 const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
                 resize();
                 window.addEventListener('resize', resize);
-                // Smaller explosion on mobile for performance
                 const spawnExplosion = (x, y) => {
                     const lineColors = [[140, 80, 180], [80, 160, 100]];
                     const count = isMobile ? 20 : 40;
@@ -124,7 +251,6 @@
                         });
                     }
                 };
-                // Mouse trail (desktop only)
                 const handleMouseMove = (e) => {
                     if (isMobile) return;
                     const now = Date.now();
@@ -142,24 +268,19 @@
                     }
                 };
                 window.addEventListener('mousemove', handleMouseMove);
-                // Click explosion
                 const handleClick = (e) => { spawnExplosion(e.clientX, e.clientY); };
                 window.addEventListener('click', handleClick);
-                // Touch explosion for mobile
                 const handleTouch = (e) => {
                     if (e.touches && e.touches.length > 0) {
-                        const touch = e.touches[0];
-                        spawnExplosion(touch.clientX, touch.clientY);
+                        spawnExplosion(e.touches[0].clientX, e.touches[0].clientY);
                     }
                 };
                 window.addEventListener('touchstart', handleTouch, { passive: true });
-                // Video explosion event
                 const handleVideoExplosion = (e) => { spawnExplosion(e.detail.x, e.detail.y); };
                 window.addEventListener('videoExplosion', handleVideoExplosion);
                 const animate = () => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     particlesRef.current = particlesRef.current.filter(p => { p.x += p.vx; p.y += p.vy; p.life -= p.decay; return p.life > 0; });
-                    // Draw lines (skip on mobile for performance if too many particles)
                     const maxForLines = isMobile ? 50 : 150;
                     if (particlesRef.current.length < maxForLines) {
                         ctx.lineWidth = 0.8;
@@ -197,7 +318,6 @@
             }, []);
             return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[1]" />;
         };
-        // --- PARTICLE SIGNATURE + RAIN (desktop only for performance) ---
         const ParticleSignature = () => {
             const canvasRef = useRef(null);
             const particlesRef = useRef([]);
@@ -272,22 +392,13 @@
                     frameCount++;
                     if (frameCount % 6 === 0 && textBottomPointsRef.current.length > 0) {
                         const point = textBottomPointsRef.current[Math.floor(Math.random() * textBottomPointsRef.current.length)];
-                        rainParticlesRef.current.push({
-                            x: point.x + (Math.random() - 0.5) * 2,
-                            y: point.y + 2,
-                            vy: 0.8 + Math.random() * 1.2,
-                            size: 1.2 + Math.random() * 1
-                        });
+                        rainParticlesRef.current.push({ x: point.x + (Math.random() - 0.5) * 2, y: point.y + 2, vy: 0.8 + Math.random() * 1.2, size: 1.2 + Math.random() * 1 });
                     }
                     const floor = floorY();
                     rainParticlesRef.current = rainParticlesRef.current.filter(p => {
                         p.y += p.vy; p.vy += 0.08;
                         if (p.y >= floor) {
-                            piledParticlesRef.current.push({
-                                x: p.x + (Math.random() - 0.5) * 5,
-                                y: floor - Math.random() * 4,
-                                size: p.size, life: 1, decay: 0.008 + Math.random() * 0.004
-                            });
+                            piledParticlesRef.current.push({ x: p.x + (Math.random() - 0.5) * 5, y: floor - Math.random() * 4, size: p.size, life: 1, decay: 0.008 + Math.random() * 0.004 });
                             return false;
                         }
                         return true;
@@ -296,19 +407,12 @@
                     particlesRef.current.forEach(p => {
                         const x = p.originX + Math.sin(time * p.speed + p.phase) * p.amplitude;
                         const y = p.originY + Math.cos(time * p.speed * 0.8 + p.phase) * p.amplitude * 0.7;
-                        const opacity = 0.85 + Math.sin(time * 0.5 + p.phase) * 0.1;
                         ctx.beginPath(); ctx.arc(x, y, p.size, 0, Math.PI * 2);
-                        ctx.fillStyle = 'hsla(' + p.hue + ', ' + p.saturation + '%, ' + p.lightness + '%, ' + opacity + ')';
+                        ctx.fillStyle = 'hsla(' + p.hue + ', ' + p.saturation + '%, ' + p.lightness + '%, ' + (0.85 + Math.sin(time * 0.5 + p.phase) * 0.1) + ')';
                         ctx.fill();
                     });
-                    rainParticlesRef.current.forEach(p => {
-                        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; ctx.fill();
-                    });
-                    piledParticlesRef.current.forEach(p => {
-                        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(0, 0, 0, ' + (p.life * 0.4) + ')'; ctx.fill();
-                    });
+                    rainParticlesRef.current.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; ctx.fill(); });
+                    piledParticlesRef.current.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0, 0, 0, ' + (p.life * 0.4) + ')'; ctx.fill(); });
                     animationRef.current = requestAnimationFrame(animate);
                 };
                 animate();
@@ -320,28 +424,17 @@
             const [isVisible, setIsVisible] = useState(false);
             const domRef = useRef(null);
             useEffect(() => {
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => { if (entry.isIntersecting) setIsVisible(true); });
-                }, { threshold: 0.05 });
+                const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) setIsVisible(true); }); }, { threshold: 0.05 });
                 if (domRef.current) observer.observe(domRef.current);
                 return () => { if (domRef.current) observer.unobserve(domRef.current); };
             }, []);
-            return (
-                <div ref={domRef} className={"transition-all duration-700 ease-out transform " + (isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10') + " " + className}>
-                    {children}
-                </div>
-            );
+            return <div ref={domRef} className={"transition-all duration-700 ease-out transform " + (isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10') + " " + className}>{children}</div>;
         };
         const GridOverlay = () => {
             const [dims, setDims] = useState({ w: 0, h: 0 });
-            useEffect(() => {
-                const update = () => setDims({ w: window.innerWidth, h: window.innerHeight });
-                update();
-                window.addEventListener('resize', update);
-                return () => window.removeEventListener('resize', update);
-            }, []);
+            useEffect(() => { const update = () => setDims({ w: window.innerWidth, h: window.innerHeight }); update(); window.addEventListener('resize', update); return () => window.removeEventListener('resize', update); }, []);
             if (!dims.w) return null;
-            const gridSize = dims.w < 768 ? 40 : 80; // Smaller grid on mobile
+            const gridSize = dims.w < 768 ? 40 : 80;
             const vLines = [], hLines = [];
             for (let i = 0; i <= Math.ceil(dims.w / gridSize); i++) vLines.push(<div key={"v" + i} className="absolute bg-black w-[1px] h-full" style={{ left: i * gridSize + 'px' }} />);
             for (let i = 0; i <= Math.ceil(dims.h / gridSize); i++) hLines.push(<div key={"h" + i} className="absolute bg-black h-[1px] w-full" style={{ top: i * gridSize + 'px' }} />);
@@ -349,22 +442,20 @@
         };
         const VideoItem = ({ project }) => {
             const safeSrc = project.embedUrl + (project.embedUrl.includes('?') ? '' : '?feature=oembed');
-            const handleVideoClick = (e) => {
-                e.stopPropagation();
-                const rect = e.currentTarget.closest('.video-card').getBoundingClientRect();
-                const x = rect.left + rect.width / 2;
-                const y = rect.top + rect.height / 2;
-                window.dispatchEvent(new CustomEvent('videoExplosion', { detail: { x, y } }));
+            const youtubeUrl = project.embedUrl.replace('/embed/', '/watch?v=');
+            const handleCardClick = (e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                window.dispatchEvent(new CustomEvent('videoExplosion', { detail: { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } }));
             };
             return (
-                <div className="video-card bg-white border border-gray-200 transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98] flex flex-col h-full relative">
+                <div className="video-card bg-white border border-gray-200 transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98] flex flex-col h-full relative z-[10]" onClick={handleCardClick}>
                     <div className="w-full bg-black relative" style={{ aspectRatio: '16/9' }}>
                         <iframe src={safeSrc} title={project.title} className="absolute inset-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy" />
-                        <div className="absolute inset-0 z-20 cursor-pointer" onClick={handleVideoClick} />
                     </div>
-                    <div className="p-3 md:p-4 flex-1 flex flex-col cursor-pointer" onClick={handleVideoClick}>
+                    <div className="p-3 md:p-4 flex-1 flex flex-col">
                         <div className="text-[13px] md:text-[15px] text-gray-600 mb-1 md:mb-1.5 leading-tight">{project.title}</div>
-                        <div className="text-[13px] md:text-[15px] font-semibold text-black leading-snug">{project.description}</div>
+                        <div className="text-[13px] md:text-[15px] font-semibold text-black leading-snug flex-1">{project.description}</div>
+                        <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="mt-2 text-[11px] md:text-[12px] text-gray-500 hover:text-black active:text-black underline" onClick={(e) => e.stopPropagation()}>Watch on YouTube ↗</a>
                     </div>
                 </div>
             );
@@ -377,15 +468,11 @@
                 </div>
                 <div className="max-w-7xl mx-auto mb-12 md:mb-20">
                     <h3 className="text-lg md:text-2xl font-bold mb-6 md:mb-10 pb-3 md:pb-4 border-b border-gray-200">{aiProjectsData.title}</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-                        {aiProjectsData.items.map(p => <VideoItem key={p.id} project={p} />)}
-                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">{aiProjectsData.items.map(p => <VideoItem key={p.id} project={p} />)}</div>
                 </div>
                 <div className="max-w-7xl mx-auto">
                     <h3 className="text-lg md:text-2xl font-bold mb-6 md:mb-10 pb-3 md:pb-4 border-b border-gray-200">{filmmakingProjectsData.title}</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-                        {filmmakingProjectsData.items.map(p => <VideoItem key={p.id} project={p} />)}
-                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">{filmmakingProjectsData.items.map(p => <VideoItem key={p.id} project={p} />)}</div>
                 </div>
             </section>
         );
@@ -402,18 +489,14 @@
                             <p className="text-sm md:text-lg lg:text-xl text-gray-800 mb-6 md:mb-10 max-w-lg leading-relaxed">Multidisciplinary creative media professional with strong expertise in video editing, motion design, and AI-powered content creation.</p>
                             <div className="text-xs md:text-sm text-gray-500">Creative Media Professional • Tel Aviv-Yafo, Israel</div>
                         </div>
-                        <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden pointer-events-none hidden md:block z-0">
-                            <ParticleSignature />
-                        </div>
+                        <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden pointer-events-none hidden md:block z-0"><ParticleSignature /></div>
                         <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 text-xl md:text-2xl text-gray-500 animate-bounce-slow z-10">↓</div>
                         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-black to-transparent opacity-50" />
                     </section>
                     <FadeIn><SelectedWorks /></FadeIn>
                     <FadeIn>
                         <section className="px-4 md:px-10 py-12 md:py-20 border-t border-gray-200 relative">
-                            <div className="relative z-[10] flex flex-col md:flex-row justify-between items-start md:items-baseline mb-8 md:mb-16 gap-2 md:gap-4">
-                                <h2 className="text-xl md:text-4xl font-bold tracking-tight">About</h2>
-                            </div>
+                            <div className="relative z-[10] flex flex-col md:flex-row justify-between items-start md:items-baseline mb-8 md:mb-16 gap-2 md:gap-4"><h2 className="text-xl md:text-4xl font-bold tracking-tight">About</h2></div>
                             <div className="relative z-[10] max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 md:gap-12">
                                 <div className="text-xs md:text-sm text-gray-800 space-y-3 md:space-y-4">
                                     <p>Creative media professional and certified film educator based in Tel Aviv.</p>
@@ -424,9 +507,7 @@
                                     <p>I'm a multidisciplinary creative media professional with a background in cinematic storytelling, video editing, motion design, and AI-driven content creation.</p>
                                     <p>My freelance work includes clients like Apollo, Icon, and Rentify, as well as AI voice localization projects for Artlist and Jungle Sound Studio.</p>
                                     <div className="flex flex-wrap gap-2 md:gap-3 mt-4 md:mt-6">
-                                        {["Video Editing", "Motion Design", "AI Tools", "Film Education", "Documentary", "Adobe Suite"].map(s => (
-                                            <span key={s} className="text-[10px] md:text-[11px] uppercase tracking-wider px-2 md:px-3 py-1.5 md:py-2 border border-black bg-white font-medium hover:bg-black hover:text-white active:bg-black active:text-white transition-colors">{s}</span>
-                                        ))}
+                                        {["Video Editing", "Motion Design", "AI Tools", "Film Education", "Documentary", "Adobe Suite"].map(s => <span key={s} className="text-[10px] md:text-[11px] uppercase tracking-wider px-2 md:px-3 py-1.5 md:py-2 border border-black bg-white font-medium hover:bg-black hover:text-white active:bg-black active:text-white transition-colors">{s}</span>)}
                                     </div>
                                 </div>
                             </div>
