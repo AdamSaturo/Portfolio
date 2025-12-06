@@ -184,7 +184,7 @@
                     const offCtx = offCanvas.getContext('2d');
                     offCanvas.width = canvas.width;
                     offCanvas.height = canvas.height;
-                    const fontSize = isMobile ? Math.min(canvas.width / 6, 32) : Math.min(canvas.width / 8, 56);
+                    const fontSize = isMobile ? Math.min(canvas.width / 8, 24) : Math.min(canvas.width / 8, 56);
                     offCtx.fillStyle = 'black';
                     offCtx.font = `bold ${fontSize}px "JetBrains Mono", monospace`;
                     offCtx.textAlign = 'center';
@@ -200,8 +200,8 @@
                     offCtx.restore();
                     const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
                     const data = imageData.data;
-                    // Mobile: denser for readable text, Desktop: normal
-                    const step = isMobile ? 1.5 : 2;
+                    // Mobile: step 3 for clean readable text, Desktop: step 2
+                    const step = isMobile ? 3 : 2;
                     for (let py = 0; py < canvas.height; py += step) {
                         for (let px = 0; px < canvas.width; px += step) {
                             const idx = (py * canvas.width + px) * 4;
@@ -214,10 +214,11 @@
                                     saturation: 85 + Math.random() * 15,
                                     lightness: 50 + Math.random() * 15,
                                     phase: Math.random() * Math.PI * 2,
-                                    // Mobile: slight wiggle only. Desktop: more movement
-                                    speed: isMobile ? 0.3 + Math.random() * 0.2 : 0.5 + Math.random() * 0.4,
-                                    amplitude: isMobile ? 0.3 + Math.random() * 0.2 : 0.6 + Math.random() * 0.8,
-                                    size: 0.8 + Math.random() * 0.3
+                                    // Mobile: very slight wiggle for readable text. Desktop: more movement
+                                    speed: isMobile ? 0.2 + Math.random() * 0.1 : 0.5 + Math.random() * 0.4,
+                                    amplitude: isMobile ? 0.2 + Math.random() * 0.1 : 0.6 + Math.random() * 0.8,
+                                    // Sharp particles
+                                    size: isMobile ? 1.0 + Math.random() * 0.2 : 0.8 + Math.random() * 0.3
                                 });
                                 const belowIdx = ((py + step) * canvas.width + px) * 4;
                                 if (py + step >= canvas.height || data[belowIdx + 3] < 30) {
