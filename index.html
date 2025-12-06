@@ -214,11 +214,10 @@
                                     saturation: 85 + Math.random() * 15,
                                     lightness: 50 + Math.random() * 15,
                                     phase: Math.random() * Math.PI * 2,
-                                    // Mobile: NO movement - particles stay perfectly aligned
-                                    speed: isMobile ? 0 : 0.5 + Math.random() * 0.4,
-                                    amplitude: isMobile ? 0 : 0.6 + Math.random() * 0.8,
-                                    // Mobile: smaller sharper particles for crisp text
-                                    size: isMobile ? 0.7 + Math.random() * 0.15 : 0.8 + Math.random() * 0.3
+                                    // Mobile: slight wiggle only. Desktop: more movement
+                                    speed: isMobile ? 0.3 + Math.random() * 0.2 : 0.5 + Math.random() * 0.4,
+                                    amplitude: isMobile ? 0.3 + Math.random() * 0.2 : 0.6 + Math.random() * 0.8,
+                                    size: 0.8 + Math.random() * 0.3
                                 });
                                 const belowIdx = ((py + step) * canvas.width + px) * 4;
                                 if (py + step >= canvas.height || data[belowIdx + 3] < 30) {
