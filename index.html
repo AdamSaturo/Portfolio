@@ -6,7 +6,8 @@
     <title>Adam Dreissinger - Creative Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,11 +24,23 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #888; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
-        @media (max-width: 768px) { html { font-size: 14px; } }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body class="text-black bg-white">
@@ -39,6 +52,7 @@
             items: [
                 { id: "particle", title: "Particle – UGC + AI video ad for Meta & TikTok", description: "60-second UGC + AI performance ad for Particle's Face Cream, mixing real creator clips with AI-generated product shots and an AI-generated hook.", embedUrl: "https://www.youtube.com/embed/AVl3LHgUF-U" },
                 { id: "squeegee", title: "E-Commerce · ASMR · All in One Device Visualization", description: "\"Squeegee\" is a fictional Amazon inspired multi head cleaning gadget.", embedUrl: "https://www.youtube.com/embed/dDROTutSa6s" },
+                { id: "arya-christmas", title: "Arya – Christmas AI video ad for Meta & TikTok", description: "Christmas-themed AI video ad for Arya.", embedUrl: "https://www.youtube.com/embed/FeDuGi-A9yE" },
                 { id: "arya-5", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 5", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/nYI5tv7-9X4" },
                 { id: "arya-2", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 2", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/d_6rUaPaAIo" },
                 { id: "arya-3", title: "Arya – UGC + AI video ad for Meta & TikTok – Hook 3", description: "30-second UGC + AI performance ad for Arya.", embedUrl: "https://www.youtube.com/embed/QfzHF6p2488" },
@@ -197,12 +211,13 @@
                                 particlesRef.current.push({
                                     originX: px, originY: py,
                                     hue: isBlack ? 0 : hues[Math.floor(Math.random() * 5)],
-                                    saturation: isBlack ? 0 : 70 + Math.random() * 30,
-                                    lightness: isBlack ? 5 + Math.random() * 15 : 45 + Math.random() * 25,
+                                    saturation: isBlack ? 0 : 80 + Math.random() * 20,
+                                    lightness: isBlack ? 5 + Math.random() * 15 : 50 + Math.random() * 20,
                                     phase: Math.random() * Math.PI * 2,
-                                    speed: isMobile ? 0.3 + Math.random() * 0.3 : 0.8 + Math.random() * 0.6,
-                                    amplitude: isMobile ? 0.15 + Math.random() * 0.2 : 0.8 + Math.random() * 1.2,
-                                    size: isMobile ? 1.2 + Math.random() * 0.3 : 1.2 + Math.random() * 0.6
+                                    // Same settings for mobile and desktop - sharp and defined
+                                    speed: 0.5 + Math.random() * 0.4,
+                                    amplitude: 0.6 + Math.random() * 0.8,
+                                    size: 1.0 + Math.random() * 0.4
                                 });
                                 const belowIdx = ((py + step) * canvas.width + px) * 4;
                                 if (py + step >= canvas.height || data[belowIdx + 3] < 30) {
@@ -220,9 +235,11 @@
                 const spawnRate = isMobile ? 10 : 6;
                 const animate = () => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    // Faster animation (2x speed)
-                    time += 0.05;
+                    // Gentle, smooth animation
+                    time += 0.02;
                     frameCount++;
+                    // Smooth ease-in for startup (first 3 seconds)
+                    const easeIn = Math.min(1, time / 3);
                     if (frameCount % spawnRate === 0 && textBottomPointsRef.current.length > 0) {
                         const point = textBottomPointsRef.current[Math.floor(Math.random() * textBottomPointsRef.current.length)];
                         rainParticlesRef.current.push({ x: point.x + (Math.random() - 0.5) * 2, y: point.y + 2, vy: 0.8 + Math.random() * 1.2, size: 1 + Math.random() * 0.5 });
@@ -238,10 +255,12 @@
                     });
                     piledParticlesRef.current = piledParticlesRef.current.filter(p => { p.life -= p.decay; return p.life > 0; });
                     particlesRef.current.forEach(p => {
-                        const x = p.originX + Math.sin(time * p.speed + p.phase) * p.amplitude;
-                        const y = p.originY + Math.cos(time * p.speed * 0.8 + p.phase) * p.amplitude * 0.7;
+                        // Smooth eased amplitude for gentle start
+                        const amp = p.amplitude * easeIn;
+                        const x = p.originX + Math.sin(time * p.speed + p.phase) * amp;
+                        const y = p.originY + Math.cos(time * p.speed * 0.8 + p.phase) * amp * 0.7;
                         ctx.beginPath(); ctx.arc(x, y, p.size, 0, Math.PI * 2);
-                        ctx.fillStyle = `hsla(${p.hue},${p.saturation}%,${p.lightness}%,0.9)`;
+                        ctx.fillStyle = `hsla(${p.hue},${p.saturation}%,${p.lightness}%,0.95)`;
                         ctx.fill();
                     });
                     rainParticlesRef.current.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fill(); });
@@ -312,14 +331,13 @@
                 <div className="min-h-screen font-mono text-black relative selection:bg-black selection:text-white">
                     <GridOverlay />
                     <MouseTrailCanvas />
-                    
                     <section className="relative px-4 md:px-10 overflow-hidden">
                         <div className="flex flex-col md:flex-row md:items-center md:min-h-[85vh]">
                             <div className="relative z-[10] max-w-2xl w-full pt-8 md:pt-0 md:flex-1">
                                 <div className="text-[10px] md:text-xs tracking-[2px] uppercase text-gray-500 mb-3 md:mb-5 font-medium">Multidisciplinary Creator</div>
                                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mb-5 md:mb-8 tracking-tighter leading-[0.9]">Adam<br />Dreissinger</h1>
                                 <p className="text-sm md:text-lg lg:text-xl text-gray-800 mb-6 md:mb-10 max-w-lg leading-relaxed">
-                                    Multidisciplinary creative media professional with strong expertise in video editing, motion design, and AI-powered content creation. 
+                                    Multidisciplinary creative media professional with strong expertise in video editing, motion design, and AI-powered content creation.
                                     I craft compelling visual narratives that blend traditional filmmaking techniques with cutting-edge AI technology.
                                 </p>
                                 <div className="text-xs md:text-sm text-gray-500 mb-4">Creative Media Professional • Tel Aviv-Yafo, Israel</div>
@@ -328,18 +346,14 @@
                                     <a href="#contact" className="border border-black px-5 md:px-6 py-2.5 md:py-3 text-[10px] md:text-[11px] uppercase tracking-widest font-medium hover:bg-black hover:text-white transition-colors">Get in Touch</a>
                                 </div>
                             </div>
-                            
                             <div className="relative z-[5] w-full h-[250px] mt-8 md:mt-0 md:absolute md:top-0 md:right-0 md:w-1/2 md:h-full overflow-hidden pointer-events-none">
                                 <ParticleSignature />
                             </div>
                         </div>
-                        
                         <div className="relative z-[10] text-xl md:text-2xl text-gray-500 animate-bounce-slow text-center mt-6 md:mt-0 md:absolute md:bottom-8 md:left-1/2 md:-translate-x-1/2">↓</div>
                         <div className="relative z-[10] w-full h-[1px] bg-gradient-to-r from-transparent via-black to-transparent opacity-50 mt-6 md:mt-0 md:absolute md:bottom-0 md:left-0 md:right-0" />
                     </section>
-                    
                     <div id="works"><FadeIn><SelectedWorks /></FadeIn></div>
-                    
                     <FadeIn>
                         <section className="px-4 md:px-10 py-12 md:py-20 border-t border-gray-200 relative z-[10] bg-white">
                             <h2 className="text-xl md:text-4xl font-bold tracking-tight mb-8 md:mb-16">About</h2>
@@ -355,7 +369,7 @@
                                     <p>My freelance work includes clients like Apollo, Icon, and Rentify, as well as AI voice localization projects for Artlist and Jungle Sound Studio. I specialize in creating performance ads for Meta and TikTok, combining UGC footage with AI-generated elements.</p>
                                     <p>As a certified film educator, I bring a unique perspective to content creation, understanding both the technical and narrative aspects of visual storytelling.</p>
                                     <div className="flex flex-wrap gap-2 md:gap-3 mt-4">
-                                        {["Video Editing", "Motion Design", "AI Tools", "Film Education", "Documentary", "Adobe Suite", "After Effects", "Premiere Pro", "DaVinci Resolve"].map(s => 
+                                        {["Video Editing", "Motion Design", "AI Tools", "Film Education", "Documentary", "Adobe Suite", "After Effects", "Premiere Pro", "DaVinci Resolve"].map(s =>
                                             <span key={s} className="text-[10px] md:text-[11px] uppercase tracking-wider px-2 md:px-3 py-1.5 md:py-2 border border-black bg-white font-medium hover:bg-black hover:text-white transition-colors">{s}</span>
                                         )}
                                     </div>
@@ -363,7 +377,6 @@
                             </div>
                         </section>
                     </FadeIn>
-                    
                     <FadeIn>
                         <section id="contact" className="px-4 md:px-10 py-12 md:py-20 border-t border-gray-200 relative z-[10] bg-white">
                             <h2 className="text-xl md:text-4xl font-bold tracking-tight mb-8 md:mb-16">Contact</h2>
@@ -383,7 +396,6 @@
                             </div>
                         </section>
                     </FadeIn>
-                    
                     <footer className="bg-black text-white py-8 md:py-10 px-4 md:px-10 text-center text-[10px] md:text-[11px] uppercase tracking-widest relative z-[10]">
                         © 2025 Adam Dreissinger — Creative Media Professional
                     </footer>
@@ -393,5 +405,4 @@
         ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
     </script>
 </body>
-</html>
 </html>
