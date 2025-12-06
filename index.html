@@ -200,24 +200,25 @@
                     offCtx.restore();
                     const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
                     const data = imageData.data;
-                    const step = 2;
+                    // Mobile: step 2.5 for 25% less particles (more line-like)
+                    const step = isMobile ? 2.5 : 2;
                     for (let py = 0; py < canvas.height; py += step) {
                         for (let px = 0; px < canvas.width; px += step) {
                             const idx = (py * canvas.width + px) * 4;
                             if (data[idx + 3] > 30) {
-                                // Only 15% black (small additional), rest colored
-                                const isBlack = isMobile && Math.random() < 0.15;
-                                const hues = [210, 280, 50, 120, 0];
+                                // Mobile: no black, all colorful. Desktop: same
+                                const hues = [210, 280, 50, 120, 330];
                                 particlesRef.current.push({
                                     originX: px, originY: py,
-                                    hue: isBlack ? 0 : hues[Math.floor(Math.random() * 5)],
-                                    saturation: isBlack ? 0 : 80 + Math.random() * 20,
-                                    lightness: isBlack ? 5 + Math.random() * 15 : 50 + Math.random() * 20,
+                                    hue: hues[Math.floor(Math.random() * 5)],
+                                    saturation: 85 + Math.random() * 15,
+                                    lightness: 50 + Math.random() * 15,
                                     phase: Math.random() * Math.PI * 2,
                                     // Same settings for mobile and desktop - sharp and defined
                                     speed: 0.5 + Math.random() * 0.4,
                                     amplitude: 0.6 + Math.random() * 0.8,
-                                    size: 1.0 + Math.random() * 0.4
+                                    // Sharper smaller particles
+                                    size: 0.8 + Math.random() * 0.3
                                 });
                                 const belowIdx = ((py + step) * canvas.width + px) * 4;
                                 if (py + step >= canvas.height || data[belowIdx + 3] < 30) {
@@ -351,7 +352,7 @@
                             </div>
                         </div>
                         <div className="relative z-[10] text-xl md:text-2xl text-gray-500 animate-bounce-slow text-center mt-6 md:mt-0 md:absolute md:bottom-8 md:left-1/2 md:-translate-x-1/2">↓</div>
-                        <div className="relative z-[10] w-full h-[1px] bg-gradient-to-r from-transparent via-black to-transparent opacity-50 mt-6 md:mt-0 md:absolute md:bottom-0 md:left-0 md:right-0" />
+                        <div className="relative z-[10] w-full h-[2px] bg-gradient-to-r from-transparent via-black to-transparent opacity-50 mt-6 md:mt-0 md:absolute md:bottom-0 md:left-0 md:right-0" />
                     </section>
                     <div id="works"><FadeIn><SelectedWorks /></FadeIn></div>
                     <FadeIn>
