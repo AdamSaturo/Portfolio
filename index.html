@@ -200,13 +200,13 @@
                     offCtx.restore();
                     const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
                     const data = imageData.data;
-                    // Mobile: step 2.5 for 25% less particles (more line-like)
-                    const step = isMobile ? 2.5 : 2;
+                    // Mobile: denser for readable text, Desktop: normal
+                    const step = isMobile ? 1.5 : 2;
                     for (let py = 0; py < canvas.height; py += step) {
                         for (let px = 0; px < canvas.width; px += step) {
                             const idx = (py * canvas.width + px) * 4;
                             if (data[idx + 3] > 30) {
-                                // Mobile: no black, all colorful. Desktop: same
+                                // All colorful, no black
                                 const hues = [210, 280, 50, 120, 330];
                                 particlesRef.current.push({
                                     originX: px, originY: py,
@@ -214,11 +214,11 @@
                                     saturation: 85 + Math.random() * 15,
                                     lightness: 50 + Math.random() * 15,
                                     phase: Math.random() * Math.PI * 2,
-                                    // Same settings for mobile and desktop - sharp and defined
-                                    speed: 0.5 + Math.random() * 0.4,
-                                    amplitude: 0.6 + Math.random() * 0.8,
-                                    // Sharper smaller particles
-                                    size: 0.8 + Math.random() * 0.3
+                                    // Mobile: NO movement - particles stay perfectly aligned
+                                    speed: isMobile ? 0 : 0.5 + Math.random() * 0.4,
+                                    amplitude: isMobile ? 0 : 0.6 + Math.random() * 0.8,
+                                    // Mobile: smaller sharper particles for crisp text
+                                    size: isMobile ? 0.7 + Math.random() * 0.15 : 0.8 + Math.random() * 0.3
                                 });
                                 const belowIdx = ((py + step) * canvas.width + px) * 4;
                                 if (py + step >= canvas.height || data[belowIdx + 3] < 30) {
